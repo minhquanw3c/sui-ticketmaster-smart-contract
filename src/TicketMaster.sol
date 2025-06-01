@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import {Counters} from "@openzeppelin/contracts/utils/Counters.sol";
 
-contract Ticketing {
+contract TicketMaster {
     using Counters for Counters.Counter;
 
     struct Event {
