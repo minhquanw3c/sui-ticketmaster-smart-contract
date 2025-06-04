@@ -27,6 +27,7 @@ contract TicketMaster {
 
     Counters.Counter private _eventIdCounter;
     Counters.Counter private _ticketIdCounter;
+    uint256 public totalEventsCount;
 
     mapping(uint256 => Event) public events;
     mapping(address => uint256[]) public eventsOrganizers;
@@ -58,6 +59,7 @@ contract TicketMaster {
 
         events[eventId] = ev;
         eventsOrganizers[msg.sender].push(eventId);
+        totalEventsCount++;
 
         return eventId;
     }
@@ -142,5 +144,16 @@ contract TicketMaster {
             ev.ticketsSold,
             ev.isActive
         );
+    }
+
+    function getAllEvents() public view returns (Event[] memory) {
+        uint256 totalEvents = totalEventsCount;
+        Event[] memory storedEvents = new Event[](totalEvents);
+
+        for (uint i = 0; i < totalEvents; i++) {
+            storedEvents[i] = events[i];
+        }
+
+        return storedEvents;
     }
 }
